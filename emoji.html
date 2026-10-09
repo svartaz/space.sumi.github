@@ -1,0 +1,317 @@
+<html>
+  <head>
+    <title>emoji作る號</title>
+    <link rel="icon" type="image/png" href="emoji.png" />
+    <meta name="author" content="sumi.space" />
+
+    <style>
+    html {
+      block-size: 100%;
+    }
+
+    body {
+      inline-size: min(100%, 640px);
+      block-size: 100%;
+      margin: 0 auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      gap: 1em;
+    }
+
+    textarea {
+      inline-size: 100%;
+      block-size: 8em;
+      font-size: inherit;
+      resize: none;
+    }
+
+    input {
+      inline-size: 100%;
+    }
+
+    .canvases {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    canvas {
+      border: 1px solid black;
+      place-self: center;
+    }
+
+    .controls {
+      block-size: fit-content;
+      place-self: center;
+      grid-column: 1;
+      grid-row: span 2;
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: 1em;
+      align-items: center;
+    }
+
+    .controls button {
+      grid-column: 1 / -1;
+    }
+    </style>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const minFontSize = 1;
+      const maxFontSizeFactor = 4;
+
+      const textarea = document.querySelector("textarea");
+      const inputs = {
+        fontFamily: document.querySelector('input[name="font"]'),
+        fontWeight: document.querySelector('input[name="font-weight"]'),
+        fontStyle: document.querySelector('input[name="font-style"]'),
+        allowStretch: document.querySelector('input[name="allow-stretch"]'),
+        fill: document.querySelector('input[name="fill"]'),
+        fillAlpha: document.querySelector('input[name="fill-alpha"]'),
+        stroke: document.querySelector('input[name="stroke"]'),
+        strokeAlpha: document.querySelector('input[name="stroke-alpha"]'),
+        strokeWidth: document.querySelector('input[name="stroke-width"]'),
+        back: document.querySelector('input[name="back"]'),
+        backAlpha: document.querySelector('input[name="back-alpha"]'),
+      };
+      const dpr = window.devicePixelRatio || 1;
+
+      const setupCanvas = (canvas) => {
+        const width = canvas.width;
+        const height = canvas.height;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        const context = canvas.getContext("2d");
+        context.scale(dpr, dpr);
+        return { context, width, height };
+      };
+
+      const canvases = Array.from(document.querySelectorAll("canvas")).map(
+        setupCanvas,
+      );
+      const main = canvases[0];
+
+      const getLineInkMetrics = (context, line) => {
+        const m = context.measureText(line || " ");
+        return {
+          width: m.actualBoundingBoxLeft + m.actualBoundingBoxRight,
+          ascent: m.actualBoundingBoxAscent,
+          descent: m.actualBoundingBoxDescent,
+          left: m.actualBoundingBoxLeft,
+        };
+      };
+
+      const buildFont = (sizePx) => {
+        const family = inputs.fontFamily.value.trim() || "serif";
+        const weight = inputs.fontWeight.value.trim() || "normal";
+        const style = inputs.fontStyle.value.trim() || "normal";
+        return `${style} ${weight} ${sizePx}px ${family}`;
+      };
+
+      const measureBlock = (context, lines, buildFont, sizePx) => {
+        context.font = buildFont(sizePx);
+        let maxInkW = 0;
+        let maxAscent = 0;
+        let maxDescent = 0;
+
+        for (const line of lines) {
+          const metrics = getLineInkMetrics(context, line);
+          maxInkW = Math.max(maxInkW, metrics.width);
+          maxAscent = Math.max(maxAscent, metrics.ascent);
+          maxDescent = Math.max(maxDescent, metrics.descent);
+        }
+
+        const inkH = maxAscent + maxDescent;
+        const lineGap = Math.max(1, inkH / 16);
+        const lineStep = inkH + lineGap;
+        const blockH = lines.length === 0
+          ? 0
+          : inkH + Math.max(0, lines.length - 1) * lineStep;
+
+        return { maxInkW, maxAscent, lineStep, blockH };
+      };
+
+      const fitFontSize = (lines, font) => {
+        let lo = minFontSize;
+        let hi = main.height * maxFontSizeFactor;
+
+        for (let i = 0; i < 24; i++) {
+          const mid = (lo + hi) / 2;
+          const block = measureBlock(main.context, lines, font, mid);
+          if (block.maxInkW <= main.width && block.blockH <= main.height) lo = mid;
+          else hi = mid;
+        }
+
+        return lo;
+      };
+
+      const drawLines = (
+        target,
+        lines,
+        firstBaselineY,
+        lineStep,
+        style,
+        stretch,
+      ) => {
+        const lineMetrics = lines.map((line) =>
+          getLineInkMetrics(target.context, line)
+        );
+
+        target.context.textBaseline = "alphabetic";
+        target.context.textAlign = "left";
+        target.context.save();
+        target.context.translate(target.width / 2, target.height / 2);
+        target.context.scale(stretch.x, stretch.y);
+        target.context.translate(-target.width / 2, -target.height / 2);
+        target.context.lineWidth = style.strokeWidth;
+        target.context.lineJoin = "round";
+        target.context.strokeStyle = style.strokeColor;
+        target.context.fillStyle = style.fillColor;
+
+        lines.forEach((line, i) => {
+          const metrics = lineMetrics[i];
+          const x = (target.width - metrics.width) / 2 + metrics.left;
+          const y = firstBaselineY + i * lineStep;
+          if (0 < style.strokeWidth && 0 < style.strokeAlpha) {
+            target.context.globalAlpha = style.strokeAlpha;
+            target.context.strokeText(line, x, y);
+          }
+          target.context.globalAlpha = style.fillAlpha;
+          target.context.fillText(line, x, y);
+        });
+
+        target.context.restore();
+      };
+
+      const renderAll = (lines, font, firstBaselineY, lineStep, style, stretch) => {
+        for (const canvas of canvases) {
+          canvas.context.save();
+          canvas.context.fillStyle = style.backColor;
+          canvas.context.globalAlpha = style.backAlpha;
+          canvas.context.fillRect(0, 0, canvas.width, canvas.height);
+          canvas.context.restore();
+
+          canvas.context.font = font;
+          drawLines(canvas, lines, firstBaselineY, lineStep, style, stretch);
+        }
+      };
+
+      const render = () => {
+        const text = textarea.value;
+
+        for (const canvas of canvases) {
+          canvas.context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        if (!text) return;
+
+        const lines = text.split(/\r?\n/);
+
+        const sizePx = fitFontSize(lines, buildFont);
+        const block = measureBlock(main.context, lines, buildFont, sizePx);
+        const firstBaselineY = (main.height - block.blockH) / 2 + block.maxAscent;
+        const widthRatio = 0 < block.maxInkW ? main.width / block.maxInkW : 1;
+        const heightRatio = 0 < block.blockH ? main.height / block.blockH : 1;
+        const stretch = inputs.allowStretch.checked
+          ? {
+            x: heightRatio < widthRatio ? widthRatio / heightRatio : 1,
+            y: widthRatio <= heightRatio ? heightRatio / widthRatio : 1,
+          }
+          : { x: 1, y: 1 };
+
+        const style = {
+          fillColor: inputs.fill.value,
+          fillAlpha: Number(inputs.fillAlpha.value),
+          strokeColor: inputs.stroke.value,
+          strokeAlpha: Number(inputs.strokeAlpha.value),
+          strokeWidth: Math.max(0, Number(inputs.strokeWidth.value) || 0),
+          backColor: inputs.back.value,
+          backAlpha: Number(inputs.backAlpha.value),
+        };
+
+        renderAll(
+          lines,
+          buildFont(sizePx),
+          firstBaselineY,
+          block.lineStep,
+          style,
+          stretch,
+        );
+
+        //console.log(main.context.canvas.toDataURL("image/png"));
+      };
+
+      for (const element of document.querySelectorAll("textarea, input")) {
+        element.addEventListener("input", render);
+      }
+      render();
+
+      document.querySelector("button").addEventListener("click", () => {
+        const a = document.createElement("a");
+        a.download = (textarea.value || "canvas") + ".png";
+        a.href = main.context.canvas.toDataURL("image/png");
+        a.click();
+        a.remove();
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <textarea>
+emoji
+作る號</textarea
+    >
+    <div class="controls">
+      <label>font family</label>
+      <input name="font" type="text"
+        value="Noto Sans, Noto Sans JP, sans-serif" />
+
+      <label>font weight</label>
+      <input name="font-weight" type="text" value="bold" />
+
+      <label>font style</label>
+      <input name="font-style" type="text" value="normal" />
+
+      <label>stretch</label>
+      <input name="allow-stretch" type="checkbox" />
+
+      <label>stroke width</label>
+      <input name="stroke-width" type="number" value="0" min="0" />
+
+      <label>stroke color</label>
+      <input name="stroke" type="color" value="black" />
+
+      <label>stroke alpha</label>
+      <input name="stroke-alpha" type="number" value="1" step="0.0625" min="0"
+        max="1" />
+
+      <label>fill color</label>
+      <input name="fill" type="color" value="gray" />
+
+      <label>fill alpha</label>
+      <input name="fill-alpha" type="number" value="1" step="0.0625" min="0"
+        max="1" />
+
+      <label>background color</label>
+      <input name="back" type="color" value="red" />
+
+      <label>background alpha</label>
+      <input name="back-alpha" type="number" value="0" step="0.0625" min="0"
+        max="1" />
+      <button>save</button>
+    </div>
+
+    <div class="canvases">
+      <canvas id="main" width="128" height="128"></canvas>
+      <canvas id="ash" width="128" height="128"
+        style="background-color: rgb(50, 51, 56)"></canvas>
+      <canvas id="dark" width="128" height="128"
+        style="background-color: rgb(29, 29, 33)"></canvas>
+      <canvas id="onyx" width="128" height="128"
+        style="background-color: black"></canvas>
+    </div>
+  </body>
+</html>
