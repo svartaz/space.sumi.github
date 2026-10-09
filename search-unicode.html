@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>search unicode</title>
+
+    <style>
+    html {
+      margin: 0;
+      padding: 1em;
+
+      body {
+        inline-size: fit-content;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        align-items: center;
+
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1em;
+        }
+
+        table {
+          border-spacing: 1em 0;
+          font-family:
+            "Noto Serif", "Noto Naskh Arabic", "Noto Serif Armenian",
+            "Noto Serif TC", "Noto Serif JP", "Noto Serif Hentaigana",
+            "IPAmjMincho", serif, sans-serif;
+
+          td:first-of-type {
+            text-align: center;
+          }
+
+          td:not(:first-of-type) {
+            font-family: monospace;
+          }
+        }
+      }
+    }
+    </style>
+
+    <script type="module">
+    let rows = null;
+    let searchRequested = false;
+
+    const form = document.querySelector("form");
+    const inputIn = document.querySelector("#include");
+    const inputEx = document.querySelector("#exclude");
+    const tbody = document.querySelector("tbody");
+    const status = document.querySelector("#status");
+
+    const keywords = (value) =>
+      value.toUpperCase().trim().split(/\s+/).filter(Boolean);
+
+    function search() {
+      if (rows === null) return;
+
+      const include = keywords(inputIn.value);
+      const exclude = keywords(inputEx.value);
+      const fragment = document.createDocumentFragment();
+      let count = 0;
+
+      for (const [code, name] of rows) {
+        if (!include.every((q) => name.includes(q))) continue;
+        if (exclude.some((q) => name.includes(q))) continue;
+
+        count += 1;
+        const row = document.createElement("tr");
+        for (
+          const value of [
+            String.fromCodePoint(parseInt(code, 16)),
+            code,
+            name,
+          ]
+        ) {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.append(cell);
+        }
+        fragment.append(row);
+      }
+
+      tbody.replaceChildren(fragment);
+      status.textContent = `${count} results`;
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      searchRequested = true;
+      search();
+    });
+
+    fetch(
+      "https://cdn.jsdelivr.net/gh/unicode-org/unicodetools@main/unicodetools/data/ucd/16.0.0/UnicodeData.txt",
+    )
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.text();
+      })
+      .then((text) => {
+        rows = text
+          .trim()
+          .split(/\r?\n/)
+          .map((line) => line.trim().split(";"));
+        status.textContent = "Ready to search.";
+        if (searchRequested) search();
+      })
+      .catch((error) => {
+        status.textContent =
+          "Could not load Unicode data. Reload the page to try again.";
+        console.error(error);
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <label for="include">include</label>
+      <input id="include" type="text" />
+      <label for="exclude">exclude</label>
+      <input id="exclude" type="text" />
+      <button type="submit">search</button>
+    </form>
+
+    <p id="status" role="status">Loading Unicode data…</p>
+
+    <table>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>
