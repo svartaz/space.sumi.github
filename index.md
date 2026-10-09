@@ -12,5 +12,9 @@
 
 ## html
 
-- [search unicode](/search-unicode)
-- [curves](/curves)
+{% assign html_files = site.static_files | where: "extname", ".html" | sort: "path" %}
+<ul>
+  {% for file in html_files %}
+    <li><a href="{{ file.path | relative_url }}">{{ file.basename | replace: "-", " " | escape }}</a></li>
+  {% endfor %}
+</ul>
