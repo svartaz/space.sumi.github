@@ -51,5 +51,5 @@ each initial hath two variants: high (historically unvoiced) and low (historical
 | -------- | --------------------- | ---------------- |
 | 天地玄黃 | tin1 dei6 jyun4 wong4 | txin dee un wog  |
 | 宇宙洪荒 | jyu5 zau6 hung4 fong1 | uq dzyo hug fog  |
-| 日月盈昃 | jat6 jyut6 jing4 zak1 | jyt ut ig tsak   |
+| 日月盈昃 | jat6 jyut6 jing4 zak1 | jyt ut ig tsyk   |
 | 辰宿列張 | san4 suk1 lit6 zoeng1 | zyn suk lit tsøg |
