@@ -1,3 +1,7 @@
+# index
+
+## markdown
+
 <ul>
   {% for page in site.pages %}
     {% if page.title and page.url != "/" %}
@@ -5,3 +9,8 @@
     {% endif %}
   {% endfor %}
 </ul>
+
+## html
+
+- [search unicode](/search-unicode)
+- [curves](/curves)
