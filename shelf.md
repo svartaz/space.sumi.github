@@ -1,0 +1,366 @@
+---
+rows:
+  - - y2005?
+    - 📖
+    - ダレン・シャン
+    - 9784092301016
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/9476/2000000199476.jpg
+  - - y2008?
+    - 🎞
+    - The Matrix Reloaded
+    - tt0234215
+    - https://m.media-amazon.com/images/M/MV5BMmIxYzBjOTgtZjBmNy00MWM3LThjMzEtMjA2YWUzZDc2YTdkXkEyXkFqcGc@._V1_.jpg
+  - - y2008?
+    - 📖
+    - 戯言シリーズ
+    - 9784061822337
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/2184/2000004262184.jpg
+  - - y2011?
+    - 📖
+    - 夏の塩
+    - 9784813012016
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/6659/2000002306659.jpg
+  - - y2011?
+    - 📖
+    - 新世界より
+    - 9784062768535
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/4001/2000000104001.jpg
+  - - y2012
+    - 💬
+    - 湯神くんには友達がいない
+    - 9784091240200
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/2847/2000001872847.jpg
+  - - y2013
+    - 💬
+    - ひきだしにテラリウム
+    - 9784781609485
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/1189/2000001611189.jpg
+  - - y2013
+    - 📖
+    - 一九八四年[新訳版]
+    - 9784151200533
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/5717/2000001715717.jpg
+  - - y2013?
+    - 📖
+    - 天帝のはしたなき果実
+    - 9784344417533
+    - https://shop.r10s.jp/book/cabinet/7533/9784344417533.jpg
+  - - y2015
+    - 💬
+    - あちらこちらぼくら
+    - 9784091871909
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/0918/2000009420918.jpg
+  - - y2015
+    - 💬
+    - スピリットサークル
+    - 9784785939830
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/7144/2000006467144.jpg
+  - - y2015?
+    - 📖
+    - ハーモニー
+    - 9784152089922
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/4627/2000001714627.jpg
+  - - y2015?
+    - 📖
+    - 後藤さんのこと
+    - 9784150310622
+    - https://shop.r10s.jp/book/cabinet/0622/9784150310622.jpg
+  - - y2015?
+    - 💬
+    - 或るアホウの一生
+    - 9784091872487
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/9526/2000003639526.jpg
+  - - y2015?
+    - 📖
+    - 日蝕・一月物語
+    - 9784101290409
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/7133/2000002397133.jpg
+  - - 2015-05-24
+    - 💬
+    - ヴォイニッチホテル
+    - 9784253255714
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/5306/2000000125306.jpg
+  - - 2015-09-16
+    - 📖
+    - ［映］アムリタ
+    - 9784048682695
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/2613/2000001692613.jpg
+
+  - - y2016?
+    - 📖
+    - 蟲師
+    - tt0807832
+    - https://m.media-amazon.com/images/M/MV5BMmUxZjA2ZTgtYmIzNy00YWE0LTliMjktZGY5NTQ5ZDEzYmM1XkEyXkFqcGc@._V1_.jpg
+  - - y2016?
+    - 📖
+    - 言語学　第2版
+    - 9784130820097
+    - https://shop.r10s.jp/book/cabinet/1308/13082009.jpg
+    - y2017?
+    - 🎞
+    - ピンポン THE ANIMATION
+    - tt3592032
+    - https://m.media-amazon.com/images/M/MV5BNmYzMDRkMmYtZjNiZS00ZGVlLWI2NWQtMjc2NTE1OThmZTBiXkEyXkFqcGc@._V1_.jpg
+  - - 2018-03-19
+    - 📖
+    - 生まれてこないほうが良かった 存在してしまうことの害悪
+    - 9784795403604
+    - https://shop.r10s.jp/book/cabinet/3604/9784795403604.jpg
+    - y2019?
+    - 💬
+    - 潮が舞い子が舞い
+    - 9784253252393
+    - https://shop.r10s.jp/book/cabinet/2386/9784253252386.jpg
+    - y2019
+    - 📖
+    - 動物からの倫理学入門
+    - 9784815805999
+    - https://shop.r10s.jp/book/cabinet/5999/9784815805999.jpg
+  - - 2020-11-08
+    - 💬
+    - サラウンド
+    - 9784845860623
+    - https://shop.r10s.jp/book/cabinet/0623/9784845860623.jpg
+  - - 2020-08-04
+    - 💬
+    - ご飯は私を裏切らない
+    - 9784041097502
+    - https://shop.r10s.jp/book/cabinet/7502/9784041097502.jpg
+  - - 2020-08-13
+    - 💬
+    - 放浪息子
+    - 9784757715226
+    - https://shop.r10s.jp/book/cabinet/5226/9784757715226.jpg
+  - - 2020-10-18
+    - 🎞
+    - ヨルムンガンド
+    - tt2259737
+    - https://m.media-amazon.com/images/M/MV5BNWM2ODhhNGQtMGI0Yi00YWExLTg3M2MtNTc3ZWRjOTU0NWUxXkEyXkFqcGc@._V1_.jpg
+  - - 2020-11-07
+    - 📖
+    - 息吹
+    - 9784152098993
+    - https://shop.r10s.jp/book/cabinet/8993/9784152098993.jpg
+    - y2021
+    - 📖
+    - 砂糖菓子の弾丸はフェイズシフト装甲を撃ちぬける
+    - https://x.com/s35_mmsg/status/1362494552456585216
+    undefined,
+  - - 2021-04-02
+    - 🎞
+    - SSSS.DYNAZENON
+    - tt11443824
+    - https://m.media-amazon.com/images/M/MV5BZWY5Zjk3ODYtYTg3NC00ZjE5LTljOGItMGE2OGI3OTc3MWM1XkEyXkFqcGc@._V1_.jpg
+  - - 2021-07-26
+    - 📖
+    - 本と鍵の季節
+    - 9784087442564
+    - https://shop.r10s.jp/book/cabinet/2564/9784087442564_1_8.jpg
+  - - 2021-07-27
+    - 📖
+    - もののあはれ
+    - 9784150121266
+    - https://shop.r10s.jp/book/cabinet/1266/9784150121266.jpg
+  - - 2021-08-08
+    - 📖
+    - ただしい人類滅亡計画　反出生主義をめぐる物語
+    - 9784781620046
+    - https://shop.r10s.jp/book/cabinet/0046/9784781620046_1_4.jpg
+  - - 2021-10-15
+    - 📖
+    - ディアスポラ
+    - 9784150115319
+    - https://shop.r10s.jp/book/cabinet/1501/15011531.jpg
+  - - 2022-03-20
+    - 📖
+    - 鴨川ランナー
+    - 9784065249956
+    - https://shop.r10s.jp/book/cabinet/9956/9784065249956_1_18.jpg
+  - - 2022-03-20
+    - 📖
+    - ロング・ゲイン 君へと続く道
+    - 9784403560217
+    - https://shop.r10s.jp/book/cabinet/0217/9784403560217.jpg
+  - - 2022-07-23
+    - 🎞
+    - 千年女優
+    - tt0291350
+    - https://m.media-amazon.com/images/M/MV5BNDkzNjY0MTAtZmRkYi00MmI1LThiZWEtOWZjYzcwODEyYWIyXkEyXkFqcGc@._V1_.jpg
+  - - 2022-11-18
+    - 🎮
+    - ポケットモンスター スカーレット
+    undefined,
+    - https://store-jp.nintendo.com/dw/image/v2/BFGJ_PRD/on/demandware.static/-/Sites-all-master-catalog/ja_JP/dw22aca882/products/D70010000053965/heroBanner/cdc689ce85ab0951e7476f6a8ad2a239ae8e8652d84c743fd7d44ca4996d4966.jpg
+  # https://twitter.com/svartaz/status/1593604474815537152
+  - - 2022-11-24
+    - 💬
+    - かないさん
+    - https://comic-days.com/episode/316190246926865505
+    - https://cdn-scissors.gigaviewer.com/image/scale/61ca5efb1ce7473c36300618f5bb4bbc1e0d6bb7/enlarge=0;height=484;no_unsharpmask=1;quality=90;version=1;width=484/https%3A%2F%2Fcdn-img.comic-days.com%2Fpublic%2Fseries-thumbnail%2F316190246926865170-6bda01ab2f1cc3263358e25a648f1686%3F1668401015
+  - - 2022-12-23
+    - 💬
+    - コメディアンブルー
+    - 9784845859856
+    - https://shop.r10s.jp/book/cabinet/9856/9784845859856.jpg
+  - - 2023-03-11
+    - 🎞
+    - Everything Everywhere All at Once
+    - tt6710474
+    - https://m.media-amazon.com/images/M/MV5BOWNmMzAzZmQtNDQ1NC00Nzk5LTkyMmUtNGI2N2NkOWM4MzEyXkEyXkFqcGc@._V1_.jpg
+  - - 2023-06-13
+    - 🎞
+    - 巌窟王
+    - tt0437719
+    - https://www.gonzo.co.jp/uploads/2014/06/0406_img5.jpg
+  - - 2023-01-10
+    - 💬
+    - メダリスト
+    - 9784065207833
+    - https://shop.r10s.jp/book/cabinet/7833/9784065207833.jpg
+  # https://x.com/svartaz/status/1612862147452899328
+  - - 2023-06-18
+    - 🎥
+    - V for Vendetta
+    - tt0434409
+    - https://m.media-amazon.com/images/M/MV5BOTI5ODc3NzExNV5BMl5BanBnXkFtZTcwNzYxNzQzMw@@._V1_.jpg
+  # - https://twitter.com/svartaz/status/1670417707144192006-
+  - - 2023-06-30
+    - 📖
+    - プロジェクト・ヘイル・メアリー
+    - 9784152100702
+    - https://shop.r10s.jp/book/cabinet/5066/9784150125066_1_7.jpg
+  - - 2023-07-09
+    - 🎞
+    - 怪物
+    - tt23736044
+    - https://m.media-amazon.com/images/M/MV5BMGJjYzVhYjEtNWYwMy00YTk5LWExMjYtNTdjODMyZTU3MzQwXkEyXkFqcGc@._V1_.jpg
+  - - 2023-07-20
+    - 📖
+    - ハンチバック
+    - 9784163917122
+    - https://shop.r10s.jp/book/cabinet/7122/9784163917122_1_10.jpg
+  - - 2023-09-24
+    - 💬
+    - インターネット・ラヴ！
+    - 9784396785727
+    - https://sbookg.s-book.com/sol/sky_gif/shoden/078572.gif
+  - - 2023-11-30
+    - 💬
+    - 遠い日の陽
+    - https://comic-days.com/episode/14079602755391426482
+    - https://cdn-scissors.gigaviewer.com/image/scale/887bd3ede2edcc99a0025375337c892bf9a66245/enlarge=0;height=484;no_unsharpmask=1;quality=90;version=1;width=484/https%3A%2F%2Fcdn-img.comic-days.com%2Fpublic%2Fseries-thumbnail%2F14079602755391417240-3a8ae0eb7721027852a268d92e672e86%3F1701147878
+  - - 2023-11-17
+    - 🎮
+    - ファミレスを享受せよ
+    - 2336980
+    undefined,
+  - - 2024-01-23
+    - 📖
+    - "あなたが世界のためにできる たったひとつのこと\n〈効果的な利他主義〉のすすめ"
+    - 9784140816929
+    - https://shop.r10s.jp/book/cabinet/6929/9784140816929.jpg
+  - - 2024-01-29
+    - 📖
+    - ボーイフレンドをきわめてみれば
+    - 9784403560583
+    - https://www.shinshokan.co.jp//images/book/636669.jpg
+  - - 2024-03-17
+    - 💬
+    - 違国日記
+    - 9784396767174
+    - https://shop.r10s.jp/book/cabinet/7174/9784396767174_1_2.jpg
+  - - 2024-03-18
+    - 🎞
+    - aftersun
+    - tt19770238
+    - https://m.media-amazon.com/images/M/MV5BZWU5Y2MyZjQtNGVjYi00ZDRkLTk1MGYtYmNlMzI0MTFmNDU2XkEyXkFqcGc@._V1_.jpg
+  - - 2024-04-12
+    - 📖
+    - 言語類型論入門　言語の普遍性と多様性
+    - 9784007305610
+    - https://shop.r10s.jp/book/cabinet/5610/9784007305610.jpg
+  - - 2024-04-26
+    - 💬
+    - 私の海
+    - https://kuragebunch.com/episode/2550689798457859833
+    - https://cdn-scissors.gigaviewer.com/image/scale/311dd764d1f2854f0cf603ad64f9e60e84be179a/enlarge=0;height=484;no_unsharpmask=1;quality=90;version=1;width=484/https%3A%2F%2Fcdn-img.kuragebunch.com%2Fpublic%2Fseries-thumbnail%2F2550689798457857798-9954b75a2b36258c362842d571db23d1%3F1760074996
+  - - 2024-05-04
+    - 💬
+    - メダカくん、さよなら。
+    - https://web-ace.jp/youngaceup/contents/1000022/
+    - https://cdn.comic-walker.com/integration/cdpf/resources/004281/resized/004281_002_01_0001.jpg
+  - - 2024-05-06
+    - 🎮
+    - Paradiso Guardian
+    - 1441240
+    undefined,
+
+  - - 2024-05-31
+    - 💬
+    - 僕らには僕らの言葉がある
+    - 9784046058003
+    - https://shop.r10s.jp/book/cabinet/8003/9784046058003_1_5.jpg
+  - - 2024-09-03
+    - 💬
+    - 愛だなんて言わないから
+    - 9784813033691
+    - https://shop.r10s.jp/book/cabinet/3691/9784813033691_1_2.jpg
+  - - 2024-09-18
+    - 🎞
+    - アルゴナビス from BanG! Dream
+    - tt12169666
+    - https://m.media-amazon.com/images/M/MV5BZmQzZTFjODktMTcyOS00ZjlmLTlhMzUtZTgwYzFlY2VjMzlmXkEyXkFqcGc@._V1_.jpg
+  - - 2024-09-20
+    - 💬
+    - もう少しだけ、そばにいて
+    - 978-4799768495
+    - https://public-img-comic.pximg.net/c!/f=webp:auto,w=640,q=75/images/work_main/10158.jpg?20250918131949
+  - - 2024-12-31
+    - 📖
+    - 一億年のテレスコープ
+    - 9784152103581
+    - https://shop.r10s.jp/book/cabinet/3581/9784152103581_1_3.jpg
+  - - 2025-07-10
+    - 📖
+    - 資本主義の次に来る世界
+    - 9784492315491
+    - https://shop.r10s.jp/book/cabinet/5491/9784492315491_1_2.jpg
+  - - 2025-07-21
+    - 🎞
+    - Robot Dreams
+    - tt13429870
+    - https://m.media-amazon.com/images/M/MV5BNjVhYWRkZjAtNTA1Mi00NDVkLWI2NjAtNzQxOTJlMWRjMDQ1XkEyXkFqcGc@._V1_FMjpg_UY2824_.jpg
+  - - 2025-10-05
+    - 📖
+    - アキレウスの歌
+    - 9784152094483
+    - https://shop.r10s.jp/rakutenkobo-ebooks/cabinet/3063/2000002053063.jpg
+  - - 2026-01-06
+    - 💬
+    - 青野くんに触りたいから死にたい
+    - 9784063882728
+    - https://shop.r10s.jp/book/cabinet/2728/9784063882728_1_5.jpg
+  - - 2026-01-16
+    - 💬
+    - いやはや熱海くん
+    - 9784047373372
+    - https://shop.r10s.jp/book/cabinet/3372/9784047373372_1_4.jpg
+  - - 2026-02-20
+    - 💬
+    - 遠い日の陽
+    - 9784065426838
+    - https://shop.r10s.jp/book/cabinet/6838/9784065426838_1_2.jpg
+---
+
+{{ page.rows }}
+
+<table>
+  <tbody>
+    {% for row in page.rows %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[2] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
