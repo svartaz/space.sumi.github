@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hilbert and gosper curves</title>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .views {
+      display: grid;
+      width: 100%;
+      max-width: calc(1280px + 1rem);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    figcaption {
+      margin-bottom: 0.5rem;
+    }
+
+    .gosper {
+      border-radius: 50%;
+    }
+
+    canvas,
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <label class="controls">
+      order
+      <input type="number" min="0" max="20" value="3" step="1" aria-label="order of both curves" />
+    </label>
+    <div class="views">
+      <figure>
+        <figcaption>hilbert svg</figcaption>
+        <svg id="hilbert-svg" aria-label="hilbert curve in SVG"></svg>
+      </figure>
+      <figure>
+        <figcaption>hilbert canvas</figcaption>
+        <canvas id="hilbert-canvas"
+          aria-label="hilbert curve on canvas"></canvas>
+      </figure>
+      <figure>
+        <figcaption>gosper svg</figcaption>
+        <svg id="gosper-svg" class="gosper"
+          aria-label="gosper curve in SVG"></svg>
+      </figure>
+      <figure>
+        <figcaption>gosper canvas</figcaption>
+        <canvas id="gosper-canvas" class="gosper"
+          aria-label="gosper curve on canvas"></canvas>
+      </figure>
+    </div>
+    <script>
+    const size = 640;
+    const black = "#000";
+    const batchSize = 1024;
+    const inputOrder = document.querySelector("input");
+    const createView = (curve) => {
+      const svg = document.querySelector(`#${curve}-svg`);
+      const canvas = document.querySelector(`#${curve}-canvas`);
+      svg.setAttribute("width", size);
+      svg.setAttribute("height", size);
+      svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
+      return {
+        curve,
+        svg,
+        canvas,
+        context: canvas.getContext("2d"),
+        cache: new Map(),
+        worker: null,
+      };
+    };
+    const views = ["hilbert", "gosper"].map(createView);
+    let revision = 0;
+
+    // each curve gets its own worker; keep the worker source in this html.
+    const curveWorker = (size) => {
+      const hilbert = (order, index) => {
+        let x = 0;
+        let y = 0;
+        let t = index;
+
+        for (let scale = 1; scale < 1 << order; scale *= 2) {
+          const rx = 1 & (t >> 1);
+          const ry = 1 & (t ^ rx);
+
+          if (ry === 0) {
+            if (rx === 1) {
+              x = scale - 1 - x;
+              y = scale - 1 - y;
+            }
+
+            [x, y] = [y, x];
+          }
+
+          x += scale * rx;
+          y += scale * ry;
+          t >>= 2;
+        }
+
+        return { x, y };
+      };
+
+      const createHilbert = (order) => {
+        const cells = 1 << order;
+        const unit = size / (2 * cells + 1);
+        const coordinates = new Float64Array(cells * cells * 2);
+
+        for (let index = 0; index < cells * cells; index++) {
+          const { x, y } = hilbert(order, index);
+          coordinates[index * 2] = unit * 1.5 + x * (unit * 2);
+          coordinates[index * 2 + 1] = unit * 1.5 + y * (unit * 2);
+        }
+
+        return { coordinates, unit };
+      };
+
+      const createGosper = (order) => {
+        // A and B both advance one step; + and - turn by 60 degrees.
+        const rules = {
+          A: "A-B--B+A++AA+B-",
+          B: "+A-BB--B-A++A+B",
+        };
+        const directions = Array.from({ length: 6 }, (_, index) => ({
+          x: Math.cos(index * Math.PI / 3),
+          y: -Math.sin(index * Math.PI / 3),
+        }));
+        const coordinates = new Float64Array((7 ** order + 1) * 2);
+        let nextCoordinate = 2;
+        let x = 0;
+        let y = 0;
+        let direction = 0;
+
+        const trace = (symbol, depth) => {
+          if (depth === 0) {
+            x += directions[direction].x;
+            y += directions[direction].y;
+            coordinates[nextCoordinate++] = x;
+            coordinates[nextCoordinate++] = y;
+            return;
+          }
+
+          for (const command of rules[symbol]) {
+            if (command === "+") {
+              direction = (direction + 1) % 6;
+            } else if (command === "-") {
+              direction = (direction + 5) % 6;
+            } else {
+              trace(command, depth - 1);
+            }
+          }
+        };
+
+        trace("A", order);
+        const { unit, offsetX, offsetY, step } = fitGosper(coordinates);
+        for (let index = 0; index < coordinates.length; index += 2) {
+          coordinates[index] = offsetX + coordinates[index] * step;
+          coordinates[index + 1] = offsetY + coordinates[index + 1] * step;
+        }
+        return { coordinates, unit };
+      };
+
+      const fitGosper = (coordinates) => {
+        let minX = Infinity;
+        let minY = Infinity;
+        let maxX = -Infinity;
+        let maxY = -Infinity;
+
+        for (let index = 0; index < coordinates.length; index += 2) {
+          const x = coordinates[index];
+          const y = coordinates[index + 1];
+          minX = Math.min(minX, x);
+          minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x);
+          maxY = Math.max(maxY, y);
+        }
+
+        const width = maxX - minX;
+        const height = maxY - minY;
+        const step = size / (Math.max(width, height) + 1.5);
+
+        return {
+          // parallel grid lines are step * sin(60°) apart; split that
+          // distance equally between the stroke and the visible gap.
+          unit: step * Math.sqrt(3) / 4,
+          offsetX: (size - width * step) / 2 - minX * step,
+          offsetY: (size - height * step) / 2 - minY * step,
+          step,
+        };
+      };
+
+      const generators = { hilbert: createHilbert, gosper: createGosper };
+      self.onmessage = ({ data: { curve, order } }) => {
+        const data = generators[curve](order);
+        self.postMessage(data, [data.coordinates.buffer]);
+      };
+    };
+    const workerUrl = URL.createObjectURL(
+      new Blob([
+        `(${curveWorker.toString()})(${size});`,
+      ], { type: "text/javascript" }),
+    );
+
+    const getOrder = () => {
+      const value = Number.parseInt(inputOrder.value, 10);
+
+      if (Number.isNaN(value)) {
+        return 0;
+      }
+
+      return Math.min(Number(inputOrder.max), Math.max(0, value));
+    };
+
+    const nextFrame = () => new Promise(requestAnimationFrame);
+
+    const setBusy = ({ svg, canvas }, busy) => {
+      svg.setAttribute("aria-busy", busy);
+      canvas.setAttribute("aria-busy", busy);
+    };
+
+    const resetView = ({ svg, canvas, context }, unit) => {
+      svg.innerHTML = `<rect width="${size}" height="${size}" fill="${black}" />`;
+
+      const ratio = window.devicePixelRatio || 1;
+      const pixels = Math.floor(size * ratio);
+      if (canvas.width !== pixels || canvas.height !== pixels) {
+        canvas.width = pixels;
+        canvas.height = pixels;
+      }
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.fillStyle = black;
+      context.fillRect(0, 0, size, size);
+      context.lineCap = "round";
+      context.lineJoin = "round";
+      context.lineWidth = unit;
+    };
+
+    const drawBatch = ({ svg, context }, { coordinates, unit }, start, end) => {
+      const total = coordinates.length / 2 - 1;
+      const lines = [];
+      for (let index = start; index < end; index++) {
+        const x1 = coordinates[index * 2];
+        const y1 = coordinates[index * 2 + 1];
+        const x2 = coordinates[index * 2 + 2];
+        const y2 = coordinates[index * 2 + 3];
+        const stroke = `hsl(${(360 * index) / total} 100% 60%)`;
+        lines.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"
+          stroke="${stroke}" stroke-width="${unit}" stroke-linecap="round" />`);
+        context.strokeStyle = stroke;
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.stroke();
+      }
+      svg.insertAdjacentHTML("beforeend", lines.join(""));
+    };
+
+    const drawView = async (view, geometry, requestedRevision) => {
+      // yield even for cached results so neither curve monopolizes the UI.
+      await nextFrame();
+      if (requestedRevision !== revision) return;
+
+      resetView(view, geometry.unit);
+      const total = geometry.coordinates.length / 2 - 1;
+      for (let start = 0; start < total; start += batchSize) {
+        if (requestedRevision !== revision) return;
+        const end = Math.min(start + batchSize, total);
+        drawBatch(view, geometry, start, end);
+        if (end < total) await nextFrame();
+      }
+      setBusy(view, false);
+    };
+
+    const renderView = (view, order, requestedRevision) => {
+      view.worker?.terminate();
+      view.worker = null;
+      setBusy(view, true);
+      if (view.cache.has(order)) {
+        void drawView(view, view.cache.get(order), requestedRevision);
+        return;
+      }
+
+      const worker = new Worker(workerUrl);
+      view.worker = worker;
+      worker.onmessage = ({ data }) => {
+        worker.terminate();
+        if (requestedRevision !== revision) return;
+        view.worker = null;
+        view.cache.set(order, data);
+        void drawView(view, data, requestedRevision);
+      };
+      worker.onerror = (event) => {
+        worker.terminate();
+        if (requestedRevision !== revision) return;
+        view.worker = null;
+        setBusy(view, false);
+        console.error(`Could not calculate ${view.curve}: ${event.message}`);
+      };
+      worker.postMessage({ curve: view.curve, order });
+    };
+
+    const render = () => {
+      const order = getOrder();
+      inputOrder.value = order;
+      revision++;
+      for (const view of views) {
+        renderView(view, order, revision);
+      }
+    };
+
+    inputOrder.addEventListener("input", render);
+    render();
+    </script>
+  </body>
+</html>
