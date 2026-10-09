@@ -110,8 +110,7 @@
         if (searchRequested) search();
       })
       .catch((error) => {
-        status.textContent =
-          "Could not load Unicode data. Reload the page to try again.";
+        status.textContent = "could not load unicode data. reload the page.";
         console.error(error);
       });
     </script>
