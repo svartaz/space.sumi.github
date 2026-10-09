@@ -21,7 +21,7 @@ each initial hath two variants: high (historically unvoiced) and low (historical
 |  mid | e [ɛː, e] | ø [œː, ɵ]   | y [ɐ]  | o [ɔː, o] |
 |  low |           |             | a [aː] |           |
 
-- `i{g`, `u{g`, `e{j`, `o{w`, `ø{j` and `ø{n` are short and the others are long.
+- `i{g`, `u{g`, `e{j`, `o{w`, `ø{j`, and `ø{n` are short and the others are long.
 - pronounce long `u` as [uː] after a labiovelar or a labial, otherwise [yː].
 - replace `ø` with `r` in ascii-only environments.
 
