@@ -55,19 +55,6 @@
 | v   | v      |
 | z   | z      |
 
-### merger
-
-| old | new | old             | new                         |
-| --- | --- | --------------- | --------------------------- |
-| ĥ   | k   | koro _heart_    | ĥoro _choir_ > kantistaro   |
-| ĥ   | k   | kolero _anger_  | ĥolero _cholera_ > holero   |
-| ĥ   | k   | kano _reed_     | ĥano _khan_ > kagano        |
-| ĥ   | k   | kino _cinema_   | ĥino _china_ > ĉino > txino |
-| ĥ   | k   | eko _start_     | eĥo _echo_ > resono         |
-| ĥ   | k   | monako _monaco_ | monaĥo _monk_ > klostrano   |
-| ĵ   | j   | juro _law_      | ĵuro _oath_ > promeso       |
-| ĵ   | j   | judo _jew_      | ĵudo _judo_ > ĝudo > dxudo  |
-
 ## grammar
 
 mostly follows _esperanto sen fleksio_.
