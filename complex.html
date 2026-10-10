@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <style>
+      body {
+        display: grid;
+        gap: 1em;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+      }
+
+      canvas {
+        border: 1px solid gray;
+        width: 512px;
+        height: 512px;
+      }
+
+      figure {
+        margin: 0;
+      }
+    </style>
+    <script>
+      const compress = (positive) => positive / (1 + positive);
+
+      class Complex {
+        constructor(re, im) {
+          this.re = re;
+          this.im = im;
+        }
+
+        norm() {
+          return Math.hypot(this.re, this.im);
+        }
+
+        angle() {
+          return Math.atan2(this.im, this.re);
+        }
+
+        conj() {
+          return new Complex(this.re, -this.im);
+        }
+
+        recip() {
+          const under = this.norm();
+          return new Complex(this.re / under, this.im / under);
+        }
+
+        exp() {
+          const r = Math.exp(this.re);
+          return new Complex(r * Math.cos(this.im), r * Math.sin(this.im));
+        }
+
+        log() {
+          return new Complex(
+            Math.log(this.re * this.re + this.im * this.im) / 2,
+            Math.atan2(this.im, this.re),
+          );
+        }
+
+        sin() {
+          return new Complex(
+            Math.sin(this.re) * Math.cosh(this.im),
+            Math.cos(this.re) * Math.sinh(this.im),
+          );
+        }
+
+        cos() {
+          return new Complex(
+            Math.cos(this.re) * Math.cosh(this.im),
+            -Math.sin(this.re) * Math.sinh(this.im),
+          );
+        }
+
+        tan() {
+          const under = Math.cos(2 * this.re) + Math.cosh(2 * this.im);
+          return new Complex(
+            Math.sin(2 * this.re) / under,
+            Math.sinh(2 * this.im) / under,
+          );
+        }
+      }
+
+      const drawCanvas = (canvas, func) => {
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * devicePixelRatio;
+        canvas.height = rect.height * devicePixelRatio;
+
+        const context = canvas.getContext("2d");
+        context.scale(devicePixelRatio, devicePixelRatio);
+
+        const width = rect.width;
+        const height = rect.height;
+        const scale = (Math.PI * 4) / width;
+        for (let i = 0; i < width; i++)
+          for (let j = 0; j < height; j++) {
+            const x = (i - width / 2) * scale;
+            const y = (j - height / 2) * scale;
+            const complex = func(x, y);
+            const norm = complex.norm();
+            const angle = complex.angle();
+            context.fillStyle =
+              isNaN(norm) || isNaN(angle)
+                ? "gray"
+                : `hsl(${(angle * 180) / Math.PI}deg 100% ${compress(norm) * 100}%)`;
+            context.fillRect(i, j, 1, 1);
+          }
+
+        context.strokeStyle = "gray";
+        context.strokeWidth = 1;
+        context.beginPath();
+        context.moveTo(0, height / 2);
+        context.lineTo(width, height / 2);
+        context.stroke();
+        context.beginPath();
+        context.moveTo(width / 2, 0);
+        context.lineTo(width / 2, height);
+        context.stroke();
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const [
+          canvasId,
+          canvasCon,
+          canvasRec,
+          canvasExp,
+          canvasLog,
+          canvasSin,
+          canvasCos,
+          canvasTan,
+        ] = document.getElementsByTagName("canvas");
+
+        drawCanvas(canvasId, (x, y) => new Complex(x, y));
+        drawCanvas(canvasCon, (x, y) => new Complex(x, y).conj());
+        drawCanvas(canvasRec, (x, y) => new Complex(x, y).recip());
+        drawCanvas(canvasExp, (x, y) => new Complex(x, y).exp());
+        drawCanvas(canvasLog, (x, y) => new Complex(x, y).log());
+        drawCanvas(canvasSin, (x, y) => new Complex(x, y).sin());
+        drawCanvas(canvasCos, (x, y) => new Complex(x, y).cos());
+        drawCanvas(canvasTan, (x, y) => new Complex(x, y).tan());
+      });
+    </script>
+  </head>
+  <body>
+    <figure>
+      <figcaption>id</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>conjugate</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>reciprocal</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>exp</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>log</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>sin</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>cos</figcaption>
+      <canvas></canvas>
+    </figure>
+
+    <figure>
+      <figcaption>tan</figcaption>
+      <canvas></canvas>
+    </figure>
+  </body>
+</html>
