@@ -1,10 +1,8 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+$base-font-family:
+  FangSong, STFangsong, "Adobe Fangsong Std", "Noto Serif", "Noto Serif TC",
+  "Noto Serif Hentaigana", serif;
 
-body {
-  font-family:
-    FangSong, STFangsong, "Adobe Fangsong Std", "Noto Serif", "Noto Serif TC",
-    "Noto Serif Hentaigana", serif;
-}
+@import "minima";
