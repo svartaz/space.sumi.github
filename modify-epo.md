@@ -1,5 +1,27 @@
 # modify esperanto
 
+## phonology
+
+### merge
+
+- merge `ĥ` and `k` into `k` [k].
+- merge `ĵ` and `j` into `j` [j, ʒ].
+- merge `ŭ` and `v` into `v` [ʋ, v].
+
+### avoid collision
+
+| old             | new                       |
+| --------------- | ------------------------- |
+| koro _heart_    | ĥoro _choir_ > koruso     |
+| eko _start_     | eĥo _echo_ > resono       |
+| kolero _anger_  | ĥolero _cholera_ > holero |
+| ĉeĥo _czech_    | ĉeko _cheque_ > ŝeko      |
+| kano _reed_     | ĥano _khan_ > kagano      |
+| kino _cinema_   | ĥino _china_ > ĉino       |
+| monako _monaco_ | monaĥo _monk_ > monaho    |
+| juro _law_      | ĵuro _oath_ > promeso     |
+| judo _jew_      | ĵudo _judo_ > ĝudo        |
+
 ## orthography
 
 | old | new    |
@@ -71,4 +93,4 @@ Ili posedas racion kaj konsciencon, kaj devus konduti unu al alia en spirito de 
 #### new
 
 txiu homo denaske liberi kaj egali lav digno kaj jo rajto.
-ili posedi ratsio kaj konstsientso, kaj devu konduti unu al alia en spirito de fratetso.
+ili posedi ratsio kaj konstsientso, kaj devi konduti unu al alia en spirito de fratetso.

@@ -1,12 +1,10 @@
+---
+---
+
 @import "{{ site.theme }}";
 
 body {
-    font-family:
-        FangSong,
-        STFangsong,
-        "Adobe Fangsong Std",
-        "Noto Serif",
-        "Noto Serif TC",
-        "Noto Serif Hentaigana"
-        serif;
+  font-family:
+    FangSong, STFangsong, "Adobe Fangsong Std", "Noto Serif", "Noto Serif TC",
+    "Noto Serif Hentaigana", serif;
 }

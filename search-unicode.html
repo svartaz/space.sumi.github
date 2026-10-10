@@ -6,113 +6,111 @@
     <title>search unicode</title>
 
     <style>
-    html {
-      margin: 0;
-      padding: 1em;
+      html {
+        margin: 0;
+        padding: 1em;
 
-      body {
-        inline-size: fit-content;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-        align-items: center;
-
-        form {
+        body {
+          inline-size: fit-content;
+          margin: 0 auto;
           display: flex;
-          flex-wrap: wrap;
+          flex-direction: column;
           gap: 1em;
-        }
+          align-items: center;
 
-        table {
-          border-spacing: 1em 0;
-          font-family:
-            "Noto Serif", "Noto Naskh Arabic", "Noto Serif Armenian",
-            "Noto Serif TC", "Noto Serif JP", "Noto Serif Hentaigana",
-            "IPAmjMincho", serif, sans-serif;
-
-          td:first-of-type {
-            text-align: center;
+          form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
           }
 
-          td:not(:first-of-type) {
-            font-family: monospace;
+          table {
+            border-spacing: 1em 0;
+            font-family:
+              "Noto Serif", "Noto Naskh Arabic", "Noto Serif Armenian",
+              "Noto Serif TC", "Noto Serif JP", "Noto Serif Hentaigana",
+              "IPAmjMincho", serif, sans-serif;
+
+            td:first-of-type {
+              text-align: center;
+            }
+
+            td:not(:first-of-type) {
+              font-family: monospace;
+            }
           }
         }
       }
-    }
     </style>
 
     <script type="module">
-    let rows = null;
-    let searchRequested = false;
+      let rows = null;
+      let searchRequested = false;
 
-    const form = document.querySelector("form");
-    const inputIn = document.querySelector("#include");
-    const inputEx = document.querySelector("#exclude");
-    const tbody = document.querySelector("tbody");
-    const status = document.querySelector("#status");
+      const form = document.querySelector("form");
+      const inputIn = document.querySelector("#include");
+      const inputEx = document.querySelector("#exclude");
+      const tbody = document.querySelector("tbody");
+      const status = document.querySelector("#status");
 
-    const keywords = (value) =>
-      value.toUpperCase().trim().split(/\s+/).filter(Boolean);
+      const keywords = (value) =>
+        value.toUpperCase().trim().split(/\s+/).filter(Boolean);
 
-    function search() {
-      if (rows === null) return;
+      function search() {
+        if (rows === null) return;
 
-      const include = keywords(inputIn.value);
-      const exclude = keywords(inputEx.value);
-      const fragment = document.createDocumentFragment();
-      let count = 0;
+        const include = keywords(inputIn.value);
+        const exclude = keywords(inputEx.value);
+        const fragment = document.createDocumentFragment();
+        let count = 0;
 
-      for (const [code, name] of rows) {
-        if (!include.every((q) => name.includes(q))) continue;
-        if (exclude.some((q) => name.includes(q))) continue;
+        for (const [code, name] of rows) {
+          if (!include.every((q) => name.includes(q))) continue;
+          if (exclude.some((q) => name.includes(q))) continue;
 
-        count += 1;
-        const row = document.createElement("tr");
-        for (
-          const value of [
+          count += 1;
+          const row = document.createElement("tr");
+          for (const value of [
             String.fromCodePoint(parseInt(code, 16)),
             code,
             name,
-          ]
-        ) {
-          const cell = document.createElement("td");
-          cell.textContent = value;
-          row.append(cell);
+          ]) {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.append(cell);
+          }
+          fragment.append(row);
         }
-        fragment.append(row);
+
+        tbody.replaceChildren(fragment);
+        status.textContent = `${count} results`;
       }
 
-      tbody.replaceChildren(fragment);
-      status.textContent = `${count} results`;
-    }
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      searchRequested = true;
-      search();
-    });
-
-    fetch(
-      "https://cdn.jsdelivr.net/gh/unicode-org/unicodetools@main/unicodetools/data/ucd/16.0.0/UnicodeData.txt",
-    )
-      .then((response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.text();
-      })
-      .then((text) => {
-        rows = text
-          .trim()
-          .split(/\r?\n/)
-          .map((line) => line.trim().split(";"));
-        status.textContent = "Ready to search.";
-        if (searchRequested) search();
-      })
-      .catch((error) => {
-        status.textContent = "could not load unicode data. reload the page.";
-        console.error(error);
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        searchRequested = true;
+        search();
       });
+
+      fetch(
+        "https://cdn.jsdelivr.net/gh/unicode-org/unicodetools@main/unicodetools/data/ucd/16.0.0/UnicodeData.txt",
+      )
+        .then((response) => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.text();
+        })
+        .then((text) => {
+          rows = text
+            .trim()
+            .split(/\r?\n/)
+            .map((line) => line.trim().split(";"));
+          status.textContent = "Ready to search.";
+          if (searchRequested) search();
+        })
+        .catch((error) => {
+          status.textContent = "could not load unicode data. reload the page.";
+          console.error(error);
+        });
     </script>
   </head>
   <body>
