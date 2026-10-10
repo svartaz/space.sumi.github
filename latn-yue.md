@@ -43,7 +43,7 @@ each initial hath two variants: high (historically unvoiced) and low (historical
 | 廣東話 | gwong2 dung1 waa2 | kwoc tug qwaq |
 | 粵語   | jyut6 jyu5        | ut uq         |
 | 香港   | hoeng1 gong2      | xøg koc       |
-| 澳門   | ou3 mun4          | qou mun       |
+| 澳門   | ou3 mun4          | qoo mun       |
 
 ### 千字文
 
